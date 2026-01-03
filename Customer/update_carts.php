@@ -1,0 +1,305 @@
+
+<?php 
+
+  session_start();
+  if (isset($_SESSION['sessionID'])) {
+    // code...
+  }else{
+    echo "<script>window.location='../pages_login.php?login&error=Session Timeout try again.';</script>";
+  }
+
+  require __DIR__.'/performCustAction.php';
+  $isPerformCustOBJ = new isPerformCustAction();
+  require __DIR__.'/../CommonFunction/CommenForEveryUserFunction.php';
+  $CommonOBJ = new CommonFunction();
+
+  $dataQ = $isPerformCustOBJ->getSessionUser($_SESSION['sessionID']);
+  $rowQ = $isPerformCustOBJ->getSessionUser($_SESSION['sessionID']);
+      foreach ($dataQ as $key => $value) {
+        // code...
+        $fullname = $value['fullname'];
+        $role = $value['role'];
+        $AccountState = $value['account_status'];
+        $url = $value['profile_picture_url'];
+        $lastlogintime = $value['last_login_time'];
+      }
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Lounge Service System - Wolaita Sodo University</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="../assets/img/wsu.png" rel="icon">
+  <link href="../assets/img/wsu.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="../dashboard/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../dashboard/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../dashboard/assets/css/style.css" rel="stylesheet">
+  <link href="../dashboard/assets/css/logo.css" rel="stylesheet">
+  <!-- Custom CSS -->
+<style>
+  body { font-family: 'Open Sans', sans-serif; background-color: #f7f8f9ff; color: #343a40; }
+  .header { background-color: #004aad; color: #0c2338ff; }
+  .header .logo img { border-radius: 50%; }
+  #sidebar { background-color: #1a1f36; }
+  #sidebar .nav-link { color: #5998aaff; }
+  #sidebar .nav-link.active { background-color: #004aad; font-weight: bold; }
+  .card { border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: none; margin-bottom: 20px; }
+  .card .card-title { font-weight: 600; color: #6585c6ff; }
+  .card-icon { background-color: #2162a4ff; color: #004aad; width: 50px; height: 50px; font-size: 24px; }
+  .breadcrumb { background: none; padding: 0; margin-bottom: 10px; }
+  .breadcrumb-item a { color: #004aad; }
+  .breadcrumb-item.active { color: #495057; }
+  .alert { border-radius: 10px; font-weight: 500; }
+  footer.footer { background-color: #4d85bcff; padding: 20px 0; text-align: center; border-top: 1px solid #dee2e6; font-size: 14px; color: #6c757d; }
+  footer.footer a { color: #0f3141ff; text-decoration: none; }
+  footer.footer a:hover { text-decoration: underline; }
+  .back-to-top { position: fixed; right: 20px; bottom: 20px; background-color: #d4d9e0ff; color: #fff; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; font-size: 20px; display: none; z-index: 9999; }
+  .back-to-top:hover { background-color: #0d5977ff; }
+  @media (max-width: 768px) {
+      .card-body { padding: 15px; }
+      .header .logo img { max-width: 50px; max-height: 50px; }
+  }
+</style>
+</head>
+
+<body>
+
+
+  <!-- =======================================================
+  * Folder Super/Admin
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+     <a href="dashboard" class="logo d-flex align-items-center">
+        <!-- <img src="../assets/img/wsu.png" alt="" style="max-height: 60PX; max-width: 100px;"> -->
+        <span class="d-none d-lg-block">LLS - <i class="bi bi-cart-fill"></i></span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li>
+
+      <?php include __DIR__.'/profileModal.php';  ?>
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <!-- Include aside bar for super admin -->
+  <?php 
+    require __DIR__.'/Component/Asidebar.php';
+    // require __DIR__.'/Component/Logoutmodal.php';
+  ?>
+  <!-- End Sidebar-->
+
+  <main id="main" class="main">
+<?php 
+    require __DIR__.'/Component/Logoutmodal.php';
+?>
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.php">Home (<?=$role; ?>)</a></li>
+          <li class="breadcrumb-item active">Last login date : <?= $lastlogintime; ?></li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+<section class="section dashboard">
+      <div class="row">
+
+        <!-- <div class="col-md-3"></div> -->
+        <div class="col-md-5"></div>
+        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center pt-2">
+          <div class="card ">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                   
+                    <h5 class="card-title text-center pb-0 fs-4">Update Carts</h5>
+                    
+                  </div>
+
+                  <?php 
+                     $cartid = $_GET['cartid'];
+                     $dataQ = $isPerformCustOBJ->getCartById($cartid);  
+                     foreach ($dataQ as $key => $values) {  ?>    
+                  <!--class: needs-validation attribute:novalidate -->
+                  <form class="row g-3 needs-validations" novalidate method="post" action="" id="forms">
+                  
+                    
+                    <p class="text-center text-success spanError errorALL"><?= $isPerformCustOBJ->editCarts(); ?></p>
+               
+                    <div class="col-md-12">
+                      <label for="yourUsername" class="col-form-label-sm">PROD Name *</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="text" name="itemname" class="form-control" id="itemname" value="<?=$values['item_name']; ?>">
+                        <input type="hidden" name="email" class="form-control" id="email" value="<?=$_SESSION['sessionID']; ?>">
+                        <input type="hidden" name="urlid" class="form-control" id="urlid" value="<?=$_GET['cartid']; ?>">
+                      </div>
+                      <span class="text-danger spanError spanError-itemname"></span>
+                    </div>
+                    
+                   <div class="col-md-12">
+                   <label for="yourPassword" class="col-form-label-sm">PROD Code (*)</label>
+                      <div class="input-group has-validation">
+                          <span class="input-group-text show">#</span>
+                          <input type="text" class="form-control pass-key" id="itemcode" value="<?=$values['item_codes']; ?>" placeholder="itemcode" name="itemcode">
+                      </div>
+                    <span class="text-danger spanError spanError-itemcode"></span>
+                  </div>
+
+                  <div class="col-md-12">
+                   <label for="yourPassword" class="col-form-label-sm">QTY (*)</label>
+                      <div class="input-group has-validation">
+                          <span class="input-group-text show">#</span>
+                          <input type="number" class="form-control pass-key" id="Quantity" value="<?=$values['quantity']; ?>" placeholder="Quantity" name="Quantity">
+                      </div>
+                    <span class="text-danger spanError spanError-Quantity"></span>
+                  </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit" name="editCarts" id="editCarts">Submit</button>
+                    </div>
+                  </form>
+                <?php } ?>
+                </div>
+              </div>
+        </div>
+
+      </div>
+    </section>
+
+
+  </main><!-- End #main -->
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer" style="margin-top: 150px;">
+    <div class="copyright">
+      &copy; Copyright <strong><span>WSU Lounge Service System</span></strong>.All right reserved.
+    </div>
+    <div class="credits">
+     
+      Powered By <a href="https://t.me/zolaoff/">It Students</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="../dashboard/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="../dashboard/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../dashboard/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="../assets/vendor/echarts/echarts.min.js"></script>
+  <script src="../dashboard/assets/vendor/quill/quill.min.js"></script>
+  <script src="../dashboard/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="../dashboard/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="../dashboard/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../dashboard/assets/js/main.js"></script>
+  <script src="../dashboard/assets/js/main.js"></script>
+  <script src="../dashboard/assets\ajax\jquery-2.2.4.min.js"></script>
+  <script src="../dashboard/assets\ajax\jquery.js"></script>
+  <script src="../dashboard/assets\ajax\jquery.min.js"></script>
+
+  <script type="text/javascript">
+$(document).ready(function() {
+
+    // Generic inline validator
+    function validateField(fieldId, errorClass, validator) {
+        const field = $(fieldId);
+        const errorSpan = $(errorClass);
+        const value = field.val().trim();
+        const result = validator(value);
+
+        if (result.valid) {
+            field.css("border-color", "green");
+            errorSpan.html('');
+        } else {
+            field.css("border-color", "red");
+            errorSpan.html(result.message);
+        }
+
+        return result.valid;
+    }
+
+    // Validators
+    const notEmptyValidator = (fieldName) => (val) => ({
+        valid: val !== '',
+        message: `* ${fieldName} is required.`
+    });
+
+
+    const passwordValidator = (fieldName, minLength=6) => (val) => {
+        if (val === '') return { valid: false, message: `* ${fieldName} is required.` };
+        if (val.length < minLength) return { valid: false, message: `* ${fieldName} must be at least ${minLength} characters.` };
+        return { valid: true, message: '' };
+    };
+
+    // Inline validation events
+    $("#itemname").on('blur keyup', () => validateField("#itemname", ".spanError-itemname", notEmptyValidator("Item Name")));
+    $("#itemcode").on('blur keyup', () => validateField("#itemcode", ".spanError-itemcode", notEmptyValidator("Item Code")));
+    $("#Quantity").on('blur keyup', () => validateField("#Quantity", ".spanError-Quantity", notEmptyValidator("Quantity")));
+
+    // Submit button click
+    $("#editCarts").on('click', function(event) {
+        let validitemname = validateField("#itemname", ".spanError-itemname", notEmptyValidator("Item Name"));
+        let validitemcode = validateField("#itemcode", ".spanError-itemcode", notEmptyValidator("Item Code"));
+        let validQuantity = validateField("#Quantity", ".spanError-Quantity", notEmptyValidator("Quantity"));
+
+        if (!(validitemname && validitemcode && validQuantity)) {
+            event.preventDefault(); // stop form submission if any field is invalid
+        } else {
+            $("#forms").submit(); // submit form if all valid
+        }
+    });
+
+});
+</script>
+
+
+</body>
+
+</html>
